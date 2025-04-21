@@ -1,7 +1,7 @@
 from code_agent.graph.execution.nodes.entry_node import entry_node
 import asyncio
 
-async def run_interactive_chat(compiled_graph, user_id, session_id, pretty_print_result, path_config=None):
+async def run_interactive_chat(compiled_graph, user_id, session_id, pretty_print_result, config_path=None):
     print("=== 챗봇 테스트 (종료하려면 '종료' 또는 'exit' 입력) ===")
     while True:
         input_text = input("\n[USER] ")
@@ -16,6 +16,6 @@ async def run_interactive_chat(compiled_graph, user_id, session_id, pretty_print
             "attachments": [],
             "metadata": {},
         }
-        code_exec_state = entry_node(user_input_dict)
+        code_exec_state = entry_node(user_input_dict, config_path=config_path)
         result = await compiled_graph.ainvoke(code_exec_state)
         pretty_print_result(result) 

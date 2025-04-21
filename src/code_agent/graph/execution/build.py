@@ -5,7 +5,7 @@ from code_agent.graph.execution.nodes.message_append import message_append_node
 from code_agent.graph.execution.nodes.run_assistant import run_assistant_node
 from code_agent.graph.execution.nodes.extract_result import extract_result_node
 from code_agent.graph.execution.nodes.error_handler import error_handler_node
-# (추후) render_output_node import 필요
+
 
 def build_execution_subgraph(node_options: dict = None) -> StateGraph:
     """
