@@ -51,7 +51,7 @@ def get_response_format_schema():
                     },
                     "result": {
                         "type": "string",
-                        "description": "코드 실행 결과(문자열로 변환된 값, 실행하지 않은 경우 빈 문자열)"
+                        "description": "코드 실행 결과(문자열로 변환된 값, 실행하지 않은 경우 일반 답변 문자열)"
                     }
                 },
                 "required": ["executed", "code", "explanation", "result"]
