@@ -37,7 +37,6 @@ def build_execution_subgraph() -> StateGraph:
 
 
 import asyncio
-import sys
 
 async def main(input_json_path):
     from code_agent.data.data_loader import load_json_as_dict

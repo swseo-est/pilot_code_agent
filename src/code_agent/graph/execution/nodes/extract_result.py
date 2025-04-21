@@ -29,11 +29,13 @@ async def extract_result_node(state: CodeExecutionState) -> CodeExecutionState:
                 state.private.executed_code = parsed_json.get("code")
                 state.private.explanation = parsed_json.get("explanation")
                 state.private.execution_result = parsed_json.get("result")
+                state.private.executed = parsed_json.get("executed")
             except Exception:
                 state.private.run_status = "parsing_failed"
                 state.private.executed_code = None
                 state.private.explanation = None
                 state.private.execution_result = None
+                state.private.executed = None
                 state.private.error_msg = "결과 파싱에 실패했습니다."
 
     else:
@@ -41,6 +43,7 @@ async def extract_result_node(state: CodeExecutionState) -> CodeExecutionState:
         state.private.executed_code = None
         state.private.explanation = None
         state.private.execution_result = None
+        state.private.executed = None
         state.private.run_status = "no_message"
         state.private.error_msg = "assistant 메시지가 반환되지 않았습니다."
 

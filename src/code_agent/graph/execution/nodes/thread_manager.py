@@ -43,14 +43,19 @@ def thread_manager_node(state: CodeExecutionState, max_minutes: float = 60.0) ->
     # 2. 없거나 만료된 경우 새로 생성
     if not state.private.assistant_id:
         instructions = """
-- 사용자의 요청에 따라 코드를 생성하고 실행하세요.
+- 사용자의 요청에 따라 코드를 생성하고, 실행이 필요한 경우 실제로 실행하세요.
 - explanation은 한글로 반환하세요.
-  반드시 아래와 같은 JSON 문자열만을 반환하세요(코드 블록 없이, 추가 설명 없이):
+- 반드시 아래와 같은 JSON 문자열만을 반환하세요(코드 블록 없이, 추가 설명 없이):
   {
+    "executed": true,   // 실제 코드 실행 시 true, 실행하지 않은 경우 false
     "code": "...",
     "explanation": "...",
     "result": "..."
   }
+- 실행이 필요 없는 경우(예: 단순 설명, 코드 예시만 제공 등)에는 executed를 false로, 실행한 경우에는 true로 설정하세요.
++ 사용자의 요청에 따라 코드를 생성하고, 실행이 필요한 경우 실제로 실행하세요.
++ explanation은 한글로 반환하세요.
++ 실행이 필요 없는 경우(예: 단순 설명, 코드 예시만 제공 등)에는 executed를 false로, 실행한 경우에는 true로 설정하세요.
 """
         tools = [{"type": "code_interpreter"}]
         model = "gpt-4o"

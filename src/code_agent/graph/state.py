@@ -24,6 +24,7 @@ class CodeExecutionPrivateState(BaseModel):
     last_message: Optional[Any] = Field(default=None, description="마지막 메시지 객체 (추출 결과)")
 
     # --- structured output 관련 정보 ---
+    executed: Optional[bool] = Field(default=None, description="실제 코드 실행 여부 (assistant의 executed 필드)")
     executed_code: Optional[Any] = Field(default=None, description="실행된 코드 블록 또는 JSON 파싱 결과")
     explanation: Optional[Any] = Field(default=None, description="코드/결과에 대한 설명 (structured output)")
     execution_result: Optional[Any] = Field(default=None, description="실행 결과 값 (structured output)")
