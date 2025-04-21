@@ -12,7 +12,6 @@ def entry_node(state: dict, config_path: str = None) -> CodeExecutionState:
     user_input = UserInputState(**state)
     private = CodeExecutionPrivateState(**state)  # 초기화, 필요시 state에서 값 추출 가능
     # config_node.yaml 경로 계산 (기본값: src/code_agent/config_node.yaml)
-
     node_options = DEFAULT_NODE_OPTIONS.copy()
     if config_path:
         with open(config_path, "r", encoding="utf-8") as f:
@@ -38,11 +37,21 @@ DEFAULT_NODE_OPTIONS = {
             "- 반드시 아래와 같은 JSON 문자열만을 반환하세요(코드 블록 없이, 추가 설명 없이):\n"
             "  {\n"
             "    \"executed\": true,   // 실제 코드 실행 시 true, 실행하지 않은 경우 false\n"
-            "    \"code\": \"...\",\n"
+            "    \"code\": \"...\\n\",\n"
             "    \"explanation\": \"...\",\n"
             "    \"result\": \"...\"\n"
             "  }\n"
-            "- 실행이 필요 없는 경우(예: 단순 설명, 코드 예시만 제공 등)에는 executed를 false로, 실행한 경우에는 true로 설정하세요."
+            "- 생성된 코드의 마지막 라인 끝에는 반드시 '# [END]'라는 주석을 추가하세요."
+            "- code 필드는 항상 마지막 줄에 빈 줄(개행)로 끝나도록 하세요.\n"
+            "- 실행이 필요 없는 경우(예: 단순 설명, 코드 예시만 제공 등)에는 executed를 false로, 실행한 경우에는 true로 설정하세요.\n"
+            "- 코드의 마지막은 빈 줄로 끝나야 합니다."
+            "- 예시:\n"
+            "  {\n"
+            "    \"executed\": true,\n"
+            "    \"code\": \"import random\\n# 랜덤하게 1부터 100 사이의 정수를 생성합니다.\\nrandom_number = random.randint(1, 100)\\nrandom_number  # [END]\\n\\n\",\n"
+            "    \"explanation\": \"random 모듈을 사용해 1~100 사이의 정수를 생성합니다.\",\n"
+            "    \"result\": \"예: 42\"\n"
+            "  }\n"
         ),
         "model": "gpt-4o",
         "max_minutes": 50.0,
