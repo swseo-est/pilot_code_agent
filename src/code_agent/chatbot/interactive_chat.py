@@ -1,7 +1,15 @@
 from code_agent.graph.execution.nodes.entry_node import entry_node
-import asyncio
+from dotenv import load_dotenv
+import os
+
 
 async def run_interactive_chat(compiled_graph, user_id, session_id, pretty_print_result, config_path=None):
+    load_dotenv()
+    api_key = os.environ.get("OPENAI_API_KEY", "YOUR_API_KEY")
+    if not api_key or api_key == "YOUR_API_KEY":
+        raise RuntimeError("[ERROR] OPENAI_API_KEY 환경변수가 설정되지 않았거나 기본값(YOUR_API_KEY)입니다. .env 파일 또는 환경변수를 확인하세요.")
+    
+
     print("=== 챗봇 테스트 (종료하려면 '종료' 또는 'exit' 입력) ===")
     while True:
         input_text = input("\n[USER] ")

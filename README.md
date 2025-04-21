@@ -6,7 +6,7 @@
 
 ```bash
 # 저장소를 클론합니다.
-git clone <YOUR_REPO_URL>
+git clone https://github.com/swseo-est/pilot_code_agent.git
 cd <YOUR_REPO_NAME>
 ```
 
@@ -19,22 +19,13 @@ python -m venv venv
 source venv/bin/activate  # (Windows: venv\Scripts\activate)
 ```
 
-## 3. 의존성 설치 (uv.lock 기반)
+## 3. 의존성 설치 (uv 기반)
 
-[uv](https://github.com/astral-sh/uv) 설치 후 아래 명령으로 완전 동일한 환경을 재현할 수 있습니다.
+[uv](https://github.com/astral-sh/uv) 설치 후 아래 명령으로 패키지와 의존성을 설치할 수 있습니다.
 
 ```bash
 pip install uv  # 또는 pipx install uv
-uv pip sync
-```
-
-### (requirements.txt/pyproject.toml을 수정한 경우)
-
-의존성 파일을 수정했다면 아래 명령으로 uv.lock을 갱신한 뒤, 다시 설치하세요.
-
-```bash
-uv pip compile  # pyproject.toml 또는 requirements.txt가 있을 때
-uv pip sync
+uv pip install .
 ```
 
 ## 4. 환경 변수 설정 (**필수**)
