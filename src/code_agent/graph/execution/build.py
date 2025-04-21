@@ -7,13 +7,16 @@ from code_agent.graph.execution.nodes.extract_result import extract_result_node
 from code_agent.graph.execution.nodes.error_handler import error_handler_node
 # (추후) render_output_node import 필요
 
-def build_execution_subgraph() -> StateGraph:
+def build_execution_subgraph(node_options: dict = None) -> StateGraph:
     """
     코드 실행 서브그래프를 빌드하여 반환합니다.
-    (START → thread_manager_node → message_append_node → run_assistant_node → extract_result_node or error_handler_node → END)
-    :return: StateGraph (LangGraph)
+    각 노드별로 옵션을 node_options dict로 전달할 수 있습니다.
+    예시: node_options={"run_assistant_node": {"timeout_sec": 30, ...}}
     """
-    
+    node_options = node_options or {}
+
+    # message_append_node, extract_result_node, error_handler_node는 옵션 없음
+
     graph = StateGraph(CodeExecutionState)
     graph.add_node("thread_manager_node", thread_manager_node)
     graph.add_node("message_append_node", message_append_node)

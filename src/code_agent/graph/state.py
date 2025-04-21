@@ -31,4 +31,5 @@ class CodeExecutionPrivateState(BaseModel):
 
 class CodeExecutionState(BaseModel):
     user_input: UserInputState = Field(..., description="외부 입력 상태")
-    private: CodeExecutionPrivateState = Field(default_factory=CodeExecutionPrivateState, description="코드 실행용 내부 상태") 
+    private: CodeExecutionPrivateState = Field(default_factory=CodeExecutionPrivateState, description="코드 실행용 내부 상태")
+    node_options: Optional[dict] = Field(default=None, description="그래프 실행 시 노드별 옵션 전달용") 
