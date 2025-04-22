@@ -9,6 +9,7 @@ async def run_assistant_node(state: CodeExecutionState) -> CodeExecutionState:
     # node_options에서 옵션 우선 적용
     opts = (getattr(state, "node_options", None) or {}).get("run_assistant_node", {})
     timeout_sec = opts.get("timeout_sec", 60)
+    use_callback = opts.get("use_callback", True)
     # stream_output_callback 등 다른 옵션도 필요시 여기에 추가
 
     if not (state.private.assistant_id and state.private.thread_id and state.private.message_id):
@@ -16,7 +17,11 @@ async def run_assistant_node(state: CodeExecutionState) -> CodeExecutionState:
 
     client = openai.OpenAI()
     response_format = get_response_format_schema()
-    stream_output_callback = StreamBlockAssembler()
+
+    if use_callback:
+        stream_output_callback = StreamBlockAssembler()
+    else:
+        stream_output_callback = None
 
     try:
         # stream=True로 실행
