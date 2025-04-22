@@ -14,7 +14,7 @@ def run_tests_exec(generated_code, test_cases):
         exec(generated_code, global_env)  # 함수 정의 실행
     except Exception as e:
         print("[ERROR] 코드 실행 실패:", e)
-        return 0, total
+        return 0, total, 3
 
     for i, test in enumerate(test_cases):
         try:
