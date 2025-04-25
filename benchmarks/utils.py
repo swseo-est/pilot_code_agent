@@ -56,6 +56,12 @@ async def create_source_code(task: str) -> str:
 def generate_mdpp_data():
     mbpp = load_dataset("mbpp")
 
+    num_total = 0
+    for key in mbpp.keys():
+        num_task = len(mbpp[key])
+        num_total += num_task
+    print(num_total)
+
     for key in mbpp.keys():
         for s in mbpp[key]:
             task = s['text']
@@ -63,3 +69,4 @@ def generate_mdpp_data():
             test_list = s['test_list']
 
             yield (task, code_ground_truth, test_list)
+
